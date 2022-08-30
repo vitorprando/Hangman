@@ -7,26 +7,12 @@ public class Main {
     static int erros = 0;
     static int acertos = 0;
 
-    public static void atualizarBoneco(int erros) {
-        if (erros >= 2) {
-            matriz[2][2] = " O ";
-        }
-        if (erros >= 4) {
-            matriz[3][2] = "—— ";
-        }
-        if (erros >= 6) {
-            matriz[3][2] = "———";
-        }
-        if (erros >= 8) {
-            matriz[4][2] = " / ";
-        }
-        if (erros >= 10) {
-            matriz[4][2] = "/| ";
-        }
+    public static void print(String string) {
+        System.out.println(string);
     }
 
     public static Boolean[] atualizarLetrasDescobertas(char guess, char[] palavraArray, Boolean[] letrasDescobertas) {
-        // Atualiza o array de booleans de letras descobertas usando a letra adivinhada. Só é chamado se a palavra tiver a letra.
+        // Retorna o array de booleans de letras descobertas atualizado usando a letra adivinhada. Só é chamado se a palavra tiver a letra.
 
         for (int i = 0; i< palavraArray.length; i++) {
             if (guess == palavraArray[i]) {
@@ -51,7 +37,7 @@ public class Main {
             return true;
         } else {
             erros++;
-            System.out.println("Letra não existe na palavra.");
+            System.out.println("Letra '" + guess + "' não existe na palavra.");
             return false;
         }
     }
@@ -91,6 +77,24 @@ public class Main {
         }
     }
 
+    public static void atualizarBoneco(int erros) {
+        if (erros >= 2) {
+            matriz[2][2] = " ㋡ ";
+        }
+        if (erros >= 4) {
+            matriz[3][2] = "——  ";
+        }
+        if (erros >= 6) {
+            matriz[3][2] = "————";
+        }
+        if (erros >= 8) {
+            matriz[4][2] = " / ";
+        }
+        if (erros >= 10) {
+            matriz[4][2] = " /|";
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int x, y;
@@ -107,7 +111,7 @@ public class Main {
         matriz[0][2] = " — ";
         matriz[1][2] = " | ";
 
-        System.out.println("Digite a palavra a ser adivinhada: ");
+        print("Digite a palavra a ser adivinhada: ");
         palavra = sc.next().toUpperCase();
 
         char[] palavraArray = palavra.toCharArray();
@@ -117,10 +121,10 @@ public class Main {
 
         while (erros < 10 && !todasAsLetrasDescobertas(letrasDescobertas)) {
             render(palavraArray, letrasDescobertas, erros);
-            System.out.println("");
+            print("");
             System.out.println("Erros: " + erros);
             System.out.println("Acertos: " + acertos);
-            System.out.println("Insira uma letra: ");
+            print("Insira uma letra: ");
             guess = sc.next().toUpperCase().charAt(0);
             if (palavraContemLetra(guess, palavraArray)) {
                 letrasDescobertas = atualizarLetrasDescobertas(guess, palavraArray, letrasDescobertas);
@@ -130,12 +134,12 @@ public class Main {
         if (erros >= 10) {
             Arrays.fill(letrasDescobertas, true);
             render(palavraArray, letrasDescobertas, erros);
-            System.out.println("Tentativas esgotadas!");
-        } else if (todasAsLetrasDescobertas(letrasDescobertas)) {
-            render(palavraArray, letrasDescobertas, erros);
-            System.out.println("Parabéns!");
+            print("");
+            print("Tentativas esgotadas.");
         } else {
-            System.out.println("Algo inesperado aconteceu.");
+            render(palavraArray, letrasDescobertas, erros);
+            print("");
+            print("Parabéns!");
         }
     }
 }
