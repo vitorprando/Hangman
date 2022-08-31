@@ -22,24 +22,30 @@ public class Main {
         return letrasDescobertas;
     }
 
-    public static boolean palavraContemLetra(char guess, char[] palavraArray) {
+    public static boolean palavraContemLetra(char guess, char[] palavraArray, Boolean[] letrasDescobertas) {
         // Verifica se a palavra tem a letra inserida e adiciona um erro se não tiver.
 
-        boolean letraExiste = false;
+        String letraExiste = "nao";
         for (int i=0; i<palavraArray.length; i++) {
-            if (guess == palavraArray[i]) {
-                letraExiste = true;
+            if (guess == palavraArray[i] && !letrasDescobertas[i]) {
+                letraExiste = "sim";
                 break;
+            } else if (letrasDescobertas[i]) {
+                letraExiste = "repetida";
             }
         }
-        if (letraExiste) {
+        if (letraExiste.equals("sim")) {
             acertos++;
             return true;
-        } else {
+        } else if (letraExiste.equals("nao")) {
             erros++;
             System.out.println("Letra '" + guess + "' não existe na palavra.");
             return false;
+        } else if (letraExiste.equals("repetida")) {
+            print("Letra repetida.");
+            return false;
         }
+        return false;
     }
 
     public static boolean todasAsLetrasDescobertas(Boolean[] letrasDescobertas) {
@@ -126,7 +132,7 @@ public class Main {
             System.out.println("Acertos: " + acertos);
             print("Insira uma letra: ");
             guess = sc.next().toUpperCase().charAt(0);
-            if (palavraContemLetra(guess, palavraArray)) {
+            if (palavraContemLetra(guess, palavraArray, letrasDescobertas)) {
                 letrasDescobertas = atualizarLetrasDescobertas(guess, palavraArray, letrasDescobertas);
             }
         }
