@@ -122,7 +122,7 @@ public class Main {
         while (erros < 10 && !todasAsLetrasDescobertas(letrasDescobertas)) {
             render(palavraArray, letrasDescobertas, erros);
             print("");
-            System.out.println("Erros: " + erros);
+            System.out.println("Erros: " + erros + "/10");
             System.out.println("Acertos: " + acertos);
             print("Insira uma letra: ");
             guess = sc.next().toUpperCase().charAt(0);
