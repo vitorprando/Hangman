@@ -30,7 +30,7 @@ public class Main {
             if (guess == palavraArray[i] && !letrasDescobertas[i]) {
                 letraExiste = "sim";
                 break;
-            } else if (letrasDescobertas[i]) {
+            } else if (guess == palavraArray[i] && letrasDescobertas[i]) {
                 letraExiste = "repetida";
             }
         }
